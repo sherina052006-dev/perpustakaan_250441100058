@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-// use App\Models\Peminjaman;
-// use App\Policies\PeminjamanPolicy;
+use App\Models\Peminjaman;
+use App\Policies\PeminjamanPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +22,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // Policy untuk akses detail peminjaman
-        // Gate::policy(Peminjaman::class, PeminjamanPolicy::class);
+        Gate::policy(Peminjaman::class, PeminjamanPolicy::class);
     }
 }
