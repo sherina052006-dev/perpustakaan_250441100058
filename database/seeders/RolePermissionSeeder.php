@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class RolePermissionSeeder extends Seeder
 {
@@ -98,5 +100,15 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
+
+   $user = User::updateOrCreate(
+    ['email' => 'admin@gmail.com'],
+    [
+        'name' => 'Admin',
+        'password' => Hash::make('adminperpus123'),
+    ]
+    );
+
+    $user->syncRoles(['Admin']);
     }
 }
