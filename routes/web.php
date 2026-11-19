@@ -110,6 +110,22 @@ Route::patch('/peminjaman/{id}/kembalikan', [PeminjamanController::class, 'kemba
 // Route::get('/uji-error', function () {
 //     throw new RuntimeException('Tes keamanan Soal 5');
 // });
+Route::get('/debug-server', function () {
+    return response()->json([
+        'server' => [
+            'HTTPS' => $_SERVER['HTTPS'] ?? null,
+            'HTTP_X_FORWARDED_PROTO' => $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? null,
+            'SERVER_PORT' => $_SERVER['SERVER_PORT'] ?? null,
+            'REQUEST_SCHEME' => $_SERVER['REQUEST_SCHEME'] ?? null,
+        ],
+        'session_driver' => config('session.driver'),
+        'session_secure' => config('session.secure'),
+        'session_id' => session()->getId(),
+        'app_env' => config('app.env'),
+        'app_url' => config('app.url'),
+    ])->cookie('debug_cookie', 'test_value_123', 60);
+});
+
 require __DIR__.'/auth.php';
 
 
