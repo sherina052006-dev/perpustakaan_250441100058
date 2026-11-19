@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        if ($this->app->environment('production')) {
+        if ($this->app->environment('production') || isset($_SERVER['VERCEL']) || str_contains(config('app.url'), 'vercel.app')) {
             URL::forceScheme('https');
         }
 
