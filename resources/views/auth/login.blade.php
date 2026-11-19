@@ -1,6 +1,12 @@
 <x-guest-layout>
     <x-auth-session-status class="mb-4" :status="session('status')" />
-
+        @if ($errors->any())
+            <div style="background: #fee2e2; color: #b91c1c; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
