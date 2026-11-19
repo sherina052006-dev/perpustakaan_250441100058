@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 use App\Models\Peminjaman;
 use App\Policies\PeminjamanPolicy;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,7 +25,6 @@ class AppServiceProvider extends ServiceProvider
             return $user->hasAnyRole(['Admin', 'Petugas']);
         });
 
-        
         Gate::policy(Peminjaman::class, PeminjamanPolicy::class);
     }
 }
