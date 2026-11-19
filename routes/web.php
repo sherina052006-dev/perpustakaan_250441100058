@@ -46,7 +46,7 @@ Route::get('/buku/{id}', function ($id) {
 })->middleware(['auth', 'permission:lihat daftar buku'])
   ->name('buku.detail');
 
-// Route DELETE menggunakan Gate
+
 Route::delete('/buku/{buku}', function (Buku $buku) {
     $buku->delete();
 
@@ -54,6 +54,8 @@ Route::delete('/buku/{buku}', function (Buku $buku) {
         ->with('success', 'Buku berhasil dihapus.');
 })->middleware(['auth', 'can:kelola-buku'])
   ->name('buku.destroy');
+
+Route::get('/buku/{id}/hapus', [BukuController::class, 'destroy']);
 
 Route::get('/admin/users', [\App\Http\Controllers\UserController::class, 'index'])
     ->middleware(['auth', 'role:Admin'])
@@ -68,6 +70,11 @@ Route::get('/laporan', [\App\Http\Controllers\LaporanController::class, 'index']
     ->name('laporan.index');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/buku/create', [BukuController::class, 'create'])
+        ->middleware('permission:kelola data buku')
+        ->name('buku.create');
+        
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])
         ->name('peminjaman.show');
 
@@ -103,5 +110,6 @@ Route::patch('/peminjaman/{id}/kembalikan', [PeminjamanController::class, 'kemba
 // Route::get('/uji-error', function () {
 //     throw new RuntimeException('Tes keamanan Soal 5');
 // });
-
 require __DIR__.'/auth.php';
+
+

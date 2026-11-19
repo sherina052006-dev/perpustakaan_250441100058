@@ -18,6 +18,7 @@
                     <th class="p-3">Tanggal Pinjam</th>
                     <th class="p-3">Tanggal Kembali</th>
                     <th class="p-3">Status</th>
+                    <th class="p-3">Aksi</th>
                 </tr>
             </thead>
 
@@ -29,10 +30,18 @@
                         <td class="p-3">{{ $item->tanggal_pinjam }}</td>
                         <td class="p-3">{{ $item->tanggal_kembali ?? '-' }}</td>
                         <td class="p-3">{{ $item->status }}</td>
+
+                        <td class="p-3">
+                            <a href="{{ route('peminjaman.show', $item->id) }}"
+                                style="display: inline-block; background-color: pink; color: white; padding: 8px 12px; border-radius: 6px;">
+                                Detail Peminjaman
+                            </a> 
+                            </a>
+                        </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="p-4 text-center text-gray-500">
+                        <td colspan="6" class="p-4 text-center text-gray-500">
                             Belum ada riwayat peminjaman.
                         </td>
                     </tr>

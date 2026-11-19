@@ -16,12 +16,12 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Gate untuk mengelola data buku
+        
         Gate::define('kelola-buku', function ($user) {
             return $user->hasAnyRole(['Admin', 'Petugas']);
         });
 
-        // Policy untuk akses detail peminjaman
+        
         Gate::policy(Peminjaman::class, PeminjamanPolicy::class);
     }
 }

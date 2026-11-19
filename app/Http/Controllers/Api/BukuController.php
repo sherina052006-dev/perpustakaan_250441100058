@@ -44,11 +44,16 @@ class BukuController extends Controller
 
     public function cari(Request $request)
     {
+        
     $judul = $request->query('judul', '');
 
+    // $hasil = DB::select(
+    //     "SELECT * FROM bukus WHERE judul = '$judul'"
+    // );
+
     $hasil = DB::select(
-        'SELECT * FROM bukus WHERE judul LIKE ?',
-        ["%{$judul}%"]
+        "SELECT * FROM bukus WHERE judul = ?",
+        [$judul]
     );
 
     return response()->json($hasil);
@@ -164,5 +169,10 @@ class BukuController extends Controller
             'status' => 'success',
             'data'   => $rekap
         ], 200);
+    }
+
+    public function create()
+    {
+    return view('buku.create');
     }
 }

@@ -96,7 +96,7 @@ class PeminjamanController extends Controller
     {
     $peminjaman = Peminjaman::with(['anggota', 'buku'])->findOrFail($id);
 
-    Gate::authorize('view', $peminjaman);
+    // Gate::authorize('view', $peminjaman);
 
     return view('peminjaman.detail', compact('peminjaman'));
     }

@@ -13,7 +13,7 @@
         <div class="space-y-4">
             <div>
                 <p class="text-gray-500">Judul Buku</p>
-                <p class="font-semibold">{{ $buku->judul }}</p>
+                <p class="font-semibold">{{ $buku->judul}}</p>
             </div>
 
             <div>
@@ -35,7 +35,7 @@
         </div>
 
         <a href="{{ url('/katalog') }}"
-            class="inline-block mt-8 bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-lg">
+            class="inline-block mt-8 bg-pink-600 hover:bg-pink-700 text-white px-5 py-2 rounded-lg">
             Kembali ke Katalog
         </a>
     </div>

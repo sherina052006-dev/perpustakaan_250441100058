@@ -105,7 +105,7 @@ class RolePermissionSeeder extends Seeder
     ['email' => 'admin@gmail.com'],
     [
         'name' => 'Admin',
-        'password' => Hash::make('adminperpus123'),
+        'password' => Hash::make('admin123'),
     ]
     );
 
