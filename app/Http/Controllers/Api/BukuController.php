@@ -77,10 +77,15 @@ class BukuController extends Controller
 
     $buku = Buku::create($validated);
 
-    return response()->json([
-        'message' => 'Buku berhasil ditambahkan',
-        'data'    => $buku->load('kategori')
-    ], 201);
+    if ($request->wantsJson() || $request->is('api/*')) {
+        return response()->json([
+            'message' => 'Buku berhasil ditambahkan',
+            'data'    => $buku->load('kategori')
+        ], 201);
+    }
+
+    return redirect()->route('katalog.index')
+        ->with('success', 'Buku berhasil ditambahkan.');
     }
 
 
@@ -173,6 +178,7 @@ class BukuController extends Controller
 
     public function create()
     {
-    return view('buku.create');
+        $kategoris = Kategori::all();
+        return view('buku.create', compact('kategoris'));
     }
 }

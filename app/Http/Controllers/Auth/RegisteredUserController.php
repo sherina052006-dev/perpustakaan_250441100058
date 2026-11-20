@@ -42,6 +42,16 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $user->assignRole('Siswa');
+
+        \App\Models\Anggota::firstOrCreate(
+            ['email' => $user->email],
+            [
+                'nama' => $user->name,
+                'telepon' => '-',
+            ]
+        );
+
         event(new Registered($user));
 
         Auth::login($user);

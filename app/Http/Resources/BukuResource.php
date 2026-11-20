@@ -11,7 +11,18 @@ class BukuResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        $anggota = Anggota::where('email', auth()->user()?->email)->first();
+        $user = auth()->user();
+        $anggota = null;
+
+        if ($user && $user->hasRole('Siswa')) {
+            $anggota = Anggota::firstOrCreate(
+                ['email' => $user->email],
+                [
+                    'nama' => $user->name,
+                    'telepon' => '-',
+                ]
+            );
+        }
 
         $peminjaman = null;
 

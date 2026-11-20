@@ -39,11 +39,20 @@ Route::get('/katalog', function () {
 })->middleware(['auth', 'permission:lihat daftar buku'])
   ->name('katalog.index');
 
+Route::get('/buku/create', [BukuController::class, 'create'])
+    ->middleware(['auth', 'permission:kelola data buku'])
+    ->name('buku.create');
+
+Route::post('/buku', [BukuController::class, 'store'])
+    ->middleware(['auth', 'permission:kelola data buku'])
+    ->name('buku.store');
+
 Route::get('/buku/{id}', function ($id) {
     $buku = Buku::with('kategori')->findOrFail($id);
 
     return view('buku.detail', compact('buku'));
 })->middleware(['auth', 'permission:lihat daftar buku'])
+  ->whereNumber('id')
   ->name('buku.detail');
 
 
@@ -55,7 +64,8 @@ Route::delete('/buku/{buku}', function (Buku $buku) {
 })->middleware(['auth', 'can:kelola-buku'])
   ->name('buku.destroy');
 
-Route::get('/buku/{id}/hapus', [BukuController::class, 'destroy']);
+Route::get('/buku/{id}/hapus', [BukuController::class, 'destroy'])
+  ->whereNumber('id');
 
 Route::get('/admin/users', [\App\Http\Controllers\UserController::class, 'index'])
     ->middleware(['auth', 'role:Admin'])
@@ -70,11 +80,6 @@ Route::get('/laporan', [\App\Http\Controllers\LaporanController::class, 'index']
     ->name('laporan.index');
 
 Route::middleware('auth')->group(function () {
-
-    Route::get('/buku/create', [BukuController::class, 'create'])
-        ->middleware('permission:kelola data buku')
-        ->name('buku.create');
-        
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])
         ->name('peminjaman.show');
 

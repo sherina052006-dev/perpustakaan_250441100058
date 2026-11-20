@@ -24,6 +24,16 @@ class UserController extends Controller
 
         $user->syncRoles($request->role);
 
+        if ($request->role === 'Siswa') {
+            \App\Models\Anggota::firstOrCreate(
+                ['email' => $user->email],
+                [
+                    'nama' => $user->name,
+                    'telepon' => '-',
+                ]
+            );
+        }
+
         return redirect()->route('admin.users.index')
             ->with('success', 'Role pengguna berhasil diperbarui.');
     }

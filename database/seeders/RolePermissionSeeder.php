@@ -101,7 +101,7 @@ class RolePermissionSeeder extends Seeder
 
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-   $user = User::updateOrCreate(
+    $user = User::updateOrCreate(
     ['email' => 'admin@gmail.com'],
     [
         'name' => 'Admin',
@@ -110,5 +110,22 @@ class RolePermissionSeeder extends Seeder
     );
 
     $user->syncRoles(['Admin']);
+
+    $siswaUser = User::updateOrCreate(
+        ['email' => 'siswa@gmail.com'],
+        [
+            'name' => 'Siswa',
+            'password' => Hash::make('siswa123'),
+        ]
+    );
+    $siswaUser->syncRoles(['Siswa']);
+
+    \App\Models\Anggota::updateOrCreate(
+        ['email' => 'siswa@gmail.com'],
+        [
+            'nama' => 'Siswa',
+            'telepon' => '081234567890',
+        ]
+    );
     }
 }

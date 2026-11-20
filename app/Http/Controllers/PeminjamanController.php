@@ -11,16 +11,26 @@ class PeminjamanController extends Controller
 {
     public function ajukan($buku_id)
     {
-        $anggota = Anggota::where(
-            'email',
-            auth()->user()->email
-        )->first();
+        $user = auth()->user();
 
-        if (!$anggota) {
-            abort(403, 'Data anggota tidak ditemukan.');
-        }
+        $anggota = Anggota::firstOrCreate(
+            ['email' => $user->email],
+            [
+                'nama' => $user->name,
+                'telepon' => '-',
+            ]
+        );
 
         $buku = Buku::findOrFail($buku_id);
+
+        $sudahPinjam = Peminjaman::where('anggota_id', $anggota->id)
+            ->where('buku_id', $buku->id)
+            ->whereIn('status', ['Menunggu Persetujuan', 'Dipinjam'])
+            ->exists();
+
+        if ($sudahPinjam) {
+            return back()->with('error', 'Anda sudah mengajukan atau sedang meminjam buku ini.');
+        }
 
         Peminjaman::create([
             'anggota_id' => $anggota->id,

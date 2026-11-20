@@ -9,11 +9,15 @@ class RiwayatPeminjamanController extends Controller
 {
     public function index()
     {
-        $anggota = Anggota::where('email', auth()->user()->email)->first();
+        $user = auth()->user();
 
-        if (!$anggota) {
-            abort(403, 'Data anggota tidak ditemukan.');
-        }
+        $anggota = Anggota::firstOrCreate(
+            ['email' => $user->email],
+            [
+                'nama' => $user->name,
+                'telepon' => '-',
+            ]
+        );
 
         $riwayat = Peminjaman::with('buku')
             ->where('anggota_id', $anggota->id)
