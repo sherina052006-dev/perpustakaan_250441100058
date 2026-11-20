@@ -20,12 +20,12 @@
 
             <div>
                 <p class="text-gray-500">Nama Peminjam</p>
-                <p class="font-semibold">{{ $peminjaman->anggota->nama ?? '-' }}</p>
+                <p class="font-semibold">{{ $peminjaman->anggota?->nama ?? '-' }}</p>
             </div>
 
             <div>
                 <p class="text-gray-500">Judul Buku</p>
-                <p class="font-semibold">{{ $peminjaman->buku->judul ?? '-' }}</p>
+                <p class="font-semibold">{{ $peminjaman->buku?->judul ?? '-' }}</p>
             </div>
 
             <div>

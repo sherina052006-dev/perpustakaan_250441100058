@@ -81,6 +81,7 @@ Route::get('/laporan', [\App\Http\Controllers\LaporanController::class, 'index']
 
 Route::middleware('auth')->group(function () {
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])
+        ->whereNumber('id')
         ->name('peminjaman.show');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
